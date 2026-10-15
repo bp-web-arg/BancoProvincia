@@ -1,52 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Banco Provincia</title>
-<!-- Iconos -->
+<!-- Fuente Roboto para igualar al celular -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Iconos para el ojo -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
   :root {
-    --verde-banco: #007a2b;
-    --turquesa-banco: #2ebcb5;
+    --verde-banco: #009b5c; /* Verde base */
+    --gradiente-header: linear-gradient(90deg, #009b5c 0%, #2ebcb5 100%);
+    --gris-input: #f8f8f8;
     --texto-gris: #333333;
-    --placeholder-color: #aaaaaa;
     --boton-color: #3c3c3c;
-    --borde-input: #dddddd;
-    --radio-boton: 4px; /* La foto muestra esquinas casi rectas */
-    --header-height: 110px;
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Roboto', 'Segoe UI', sans-serif;
-    background-color: #e8ecf0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #eef3f7; /* Fondo gris azulado suave */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
   }
 
-  .mobile-wrapper {
+  .phone-frame {
     width: 100%;
     max-width: 400px;
     background-color: #ffffff;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     position: relative;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
   }
 
   @media (min-width: 401px) {
-    .mobile-wrapper {
-      height: 95vh;
+    .phone-frame {
+      height: 90vh;
       border-radius: 12px;
       overflow: hidden;
       margin-top: 20px;
@@ -54,40 +49,38 @@
     }
   }
 
-  /* HEADER EXACTO A LA IMAGEN */
+  /* HEADER EXACTO A LA FOTO */
   header {
-    background: linear-gradient(90deg, var(--verde-banco) 0%, var(--turquesa-banco) 100%);
-    height: var(--header-height);
-    padding: 20px 20px 10px 20px;
+    background: var(--gradiente-header);
+    padding: 20px 20px 15px 20px;
     text-align: center;
     color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 
   .logo-area {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
-  .logo-svg {
-    width: 36px;
-    height: 36px;
+  .logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
   }
 
   h1 {
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
+    margin: 0;
   }
 
   .subtitulo {
     font-size: 1.1rem;
-    font-weight: 600;
-    opacity: 0.95;
+    font-weight: 700;
+    margin-top: 10px;
   }
 
   /* FORMULARIO */
@@ -106,7 +99,7 @@
   label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.95rem;
     color: var(--texto-gris);
   }
@@ -117,8 +110,8 @@
     padding: 12px 10px;
     font-size: 1rem;
     border: none;
-    border-bottom: 2px solid var(--borde-input);
-    background: transparent;
+    border-bottom: 2px solid #cccccc;
+    background-color: var(--gris-input);
     color: var(--texto-gris);
     outline: none;
     transition: border-color 0.3s;
@@ -126,10 +119,11 @@
 
   input:focus {
     border-bottom-color: var(--verde-banco);
+    background-color: #fff;
   }
 
   input::placeholder {
-    color: var(--placeholder-color);
+    color: #999999;
   }
 
   /* BOTÓN DEL OJO */
@@ -141,8 +135,7 @@
     border: none;
     color: var(--verde-banco);
     cursor: pointer;
-    font-size: 1.2rem;
-    padding: 5px;
+    font-size: 1.1rem;
   }
 
   /* BOTÓN INGRESAR */
@@ -152,16 +145,15 @@
     background-color: var(--boton-color);
     color: white;
     border: none;
-    border-radius: var(--radio-boton);
+    border-radius: 4px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     margin-top: 10px;
-    transition: background-color 0.2s;
   }
 
   .btn-ingresar:hover {
-    background-color: #555555;
+    background-color: #555;
   }
 
   /* LINKS INFERIORES */
@@ -179,11 +171,10 @@
     color: var(--verde-banco);
     font-size: 0.9rem;
     text-align: left;
-    line-height: 1.4;
   }
 
   .link-item:hover {
-    color: #005a20;
+    color: #007a2b;
   }
   
   .required {
@@ -193,15 +184,11 @@
 </head>
 <body>
 
-<div class="mobile-wrapper">
+<div class="phone-frame">
   <header>
     <div class="logo-area">
-      <!-- SVG Logo Banco Provincia -->
-      <svg class="logo-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="white" stroke-width="2"/>
-        <path d="M12 22V12" stroke="white" stroke-width="2"/>
-        <path d="M2 7L12 12L22 7" stroke="white" stroke-width="2"/>
-      </svg>
+      <!-- LOGO OFICIAL BANCO PROVINCIA -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg/1200px-Banco_de_la_Provincia_de_Buenos_Aires_Logo.svg.png" alt="Logo BP" class="logo-img">
       <h1>Banco Provincia</h1>
     </div>
     <div class="subtitulo">Iniciá sesión</div>
